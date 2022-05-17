@@ -2,26 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends React.Component {
-  /*  state = {
-    cardName: '',
-    cardDescription: '',
-    cardAttr1: '',
-    cardAttr2: '',
-    cardAttr3: '',
-    cardImage: '',
-    cardRare: '',
-    cardTrunfo: false,
-    hasTrunfo: false,
-    isSaveButtonDisabled: false,
-    onInputChange: 0,
-    onSaveButtonClick: 0,
-  };
-
-  handleChange = (event) => {
-    const { target: { value, name } } = event;
-    this.setState({ [name]: value });
-  } */
-
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage, cardRare, cardTrunfo, /* hasTrunfo, */
