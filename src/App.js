@@ -13,7 +13,7 @@ class App extends React.Component {
     cardRare: '',
     cardTrunfo: false,
     /* hasTrunfo: false, */
-    isSaveButtonDisabled: false,
+    // isSaveButtonDisabled: false,
     // onSaveButtonClick: '', // function
   }
 
