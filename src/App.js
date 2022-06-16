@@ -15,6 +15,7 @@ class App extends React.Component {
     hasTrunfo: false,
     isSaveButtonDisabled: true,
     cards: [],
+    filter: '',
   };
 
   initialState = () => {
@@ -107,6 +108,10 @@ class App extends React.Component {
     }
   }
 
+  handleFilter = ({ target }) => {
+    this.setState({ filter: target.value });
+  }
+
   render() {
     const {
       cardName,
@@ -120,7 +125,11 @@ class App extends React.Component {
       hasTrunfo,
       isSaveButtonDisabled,
       cards,
+      filter,
     } = this.state;
+
+    const cardsFilter = cards.filter((card) => card.cardName.includes(filter));
+
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -148,7 +157,13 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        {cards.map((card) => (
+        <input
+          type="text"
+          placeholder="Buscar carta"
+          data-testid="name-filter"
+          onChange={ this.handleFilter }
+        />
+        {cardsFilter.map((card) => (
           <div key={ card.cardDescription }>
             <Card
               cardName={ card.cardName }
