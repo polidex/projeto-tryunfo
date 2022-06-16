@@ -7,6 +7,7 @@ class Form extends React.Component {
       cardAttr3, cardImage, cardRare, cardTrunfo, /* hasTrunfo, */
       isSaveButtonDisabled, onInputChange, onSaveButtonClick,
     } = this.props;
+
     return (
       <form id="cardMaker">
         <input
