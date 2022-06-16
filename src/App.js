@@ -64,6 +64,17 @@ class App extends React.Component {
     this.setState(() => ({ [name]: value }), this.cardFormValidation);
   }
 
+  deleteButton = ({ target }) => {
+    const { cards } = this.state;
+    const newCards = cards.filter((card) => card.cardName !== target.id);
+    this.setState({ cards: newCards });
+    cards.forEach((card) => {
+      if (card.cardName === target.id && card.cardTrunfo) {
+        this.setState({ hasTrunfo: false });
+      }
+    });
+  }
+
   cardFormValidation = () => {
     let attrValidation = false;
     let inputsValidation = false;
@@ -138,7 +149,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         {cards.map((card) => (
-          <div key={ card.cardname }>
+          <div key={ card.cardDescription }>
             <Card
               cardName={ card.cardName }
               cardDescription={ card.cardDescription }
@@ -149,6 +160,14 @@ class App extends React.Component {
               cardRare={ card.cardRare }
               cardTrunfo={ card.cardTrunfo }
             />
+            <button
+              type="button"
+              data-testid="delete-button"
+              id={ card.cardName }
+              onClick={ this.deleteButton }
+            >
+              Excluir carta
+            </button>
           </div>))}
       </div>
     );
