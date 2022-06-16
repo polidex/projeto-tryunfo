@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import RarityFilter from './components/RarityFilter';
 
 class App extends React.Component {
   state = {
@@ -16,6 +17,7 @@ class App extends React.Component {
     isSaveButtonDisabled: true,
     cards: [],
     filter: '',
+    rarityFilter: 'todas',
   };
 
   initialState = () => {
@@ -109,7 +111,19 @@ class App extends React.Component {
   }
 
   handleFilter = ({ target }) => {
-    this.setState({ filter: target.value });
+    const { name } = target;
+    this.setState({ [name]: target.value });
+  }
+
+  cardsFilter = () => {
+    const { cards, filter, rarityFilter } = this.state;
+    const cardNameFilter = cards.filter((card) => card.cardName.includes(filter));
+    let cardRarityFilter = cardNameFilter;
+    if (rarityFilter !== 'todas') {
+      cardRarityFilter = cardNameFilter
+        .filter((card) => card.cardRare === rarityFilter);
+    }
+    return cardRarityFilter;
   }
 
   render() {
@@ -124,11 +138,12 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      cards,
-      filter,
+      // cards,
+      // filter,
+      rarityFilter,
     } = this.state;
 
-    const cardsFilter = cards.filter((card) => card.cardName.includes(filter));
+    // const cardsFilter = cards.filter((card) => card.cardName.includes(filter));
 
     return (
       <div>
@@ -160,10 +175,15 @@ class App extends React.Component {
         <input
           type="text"
           placeholder="Buscar carta"
+          name="filter"
           data-testid="name-filter"
           onChange={ this.handleFilter }
         />
-        {cardsFilter.map((card) => (
+        <RarityFilter
+          rarityFilter={ rarityFilter }
+          onInputChange={ this.handleFilter }
+        />
+        {this.cardsFilter().map((card) => (
           <div key={ card.cardDescription }>
             <Card
               cardName={ card.cardName }
